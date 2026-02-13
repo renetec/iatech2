@@ -83,17 +83,12 @@
 
         /* Logo */
         .logo {
-            width: 80px;
-            height: 80px;
-            background: #fff;
-            border-radius: 50%;
+            max-width: 150px;
+            max-height: 80px;
+            width: auto;
+            height: auto;
             margin-bottom: 1.5rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            color: #1a1a2e;
-            font-size: 0.8rem;
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.6));
         }
 
         /* CTA Button */
@@ -204,9 +199,56 @@
             background: #fff;
             transform: scale(1.3);
         }
+
+        /* Language Toggle */
+        .language-toggle {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            z-index: 200;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .lang-btn {
+            cursor: pointer;
+            opacity: 0.5;
+            transition: opacity 0.2s, font-weight 0.2s;
+            color: #fff;
+        }
+
+        .lang-btn:hover {
+            opacity: 0.7;
+        }
+
+        .lang-btn.active {
+            opacity: 1;
+            font-weight: 700;
+        }
+
+        .separator {
+            color: #fff;
+            opacity: 0.3;
+        }
     </style>
 </head>
 <body>
+
+    <!-- Language Toggle -->
+    <div class="language-toggle">
+        <span class="lang-btn active" data-lang="fr">FR</span>
+        <span class="separator">|</span>
+        <span class="lang-btn" data-lang="en">EN</span>
+        <span class="separator">|</span>
+        <span class="lang-btn" data-lang="es">ES</span>
+    </div>
 
     <!-- Navigation dots -->
     <div class="frame-counter">
@@ -224,9 +266,9 @@
         <div class="overlay"></div>
 
         <div class="content">
-            <div class="logo">iatech</div>
-            <h1 class="headline">L'informatique.<br>Sans bullshit.</h1>
-            <p class="subline">Réparation • IA • Solutions</p>
+            <img src="images/iatec_logo.jpg" alt="iatech" class="logo">
+            <h1 class="headline" data-lang-key="frame1.headline">L'informatique.</h1>
+            <p class="subline" data-lang-key="frame1.subline">Réparation • IA • Solutions</p>
         </div>
 
         <div class="location-tag">📍 Saint-Pacôme, Kamouraska</div>
@@ -246,8 +288,8 @@
         <div class="overlay"></div>
 
         <div class="content">
-            <h2 class="headline">Ça marche plus?<br>Ça va marcher.</h2>
-            <p class="subline">PC • Portable • Imprimante • IA</p>
+            <h2 class="headline" data-lang-key="frame2.headline">Ça marche plus?<br>Ça va marcher.</h2>
+            <p class="subline" data-lang-key="frame2.subline">PC • Portable • Imprimante • IA</p>
         </div>
     </section>
 
@@ -259,8 +301,8 @@
         <div class="overlay"></div>
 
         <div class="content">
-            <h2 class="headline">Ton voisin<br>informatique.</h2>
-            <p class="subline">30 ans d'expérience • Service rapide</p>
+            <h2 class="headline" data-lang-key="frame3.headline">Ton voisin<br>informatique.</h2>
+            <p class="subline" data-lang-key="frame3.subline">30 ans d'expérience • Service rapide</p>
         </div>
 
         <div class="location-tag">📍 Saint-Pacôme, Kamouraska</div>
@@ -274,17 +316,17 @@
         <div class="overlay"></div>
 
         <div class="content">
-            <h2 class="headline">On jase?</h2>
+            <h2 class="headline" data-lang-key="frame4.headline">On jase?</h2>
 
             <div class="contact-content">
                 <a href="tel:+1234567890" class="contact-link">
-                    📞 <span>Appelle</span>
+                    📞 <span data-lang-key="frame4.contact1">Appelle</span>
                 </a>
                 <a href="mailto:info@iatechinfo.com" class="contact-link">
-                    ✉️ <span>Écris</span>
+                    ✉️ <span data-lang-key="frame4.contact2">Écris</span>
                 </a>
                 <a href="#" class="contact-link">
-                    💬 <span>Messenger</span>
+                    💬 <span data-lang-key="frame4.contact3">Messenger</span>
                 </a>
             </div>
         </div>
@@ -293,6 +335,101 @@
     </section>
 
     <script>
+        // Translations
+        const translations = {
+            fr: {
+                frame1: {
+                    headline: "L'informatique.",
+                    subline: "Réparation • IA • Solutions"
+                },
+                frame2: {
+                    headline: "Ça marche plus?<br>Ça va marcher.",
+                    subline: "PC • Portable • Imprimante • IA"
+                },
+                frame3: {
+                    headline: "Ton voisin<br>informatique.",
+                    subline: "30 ans d'expérience • Service rapide"
+                },
+                frame4: {
+                    headline: "On jase?",
+                    contact1: "Appelle",
+                    contact2: "Écris",
+                    contact3: "Messenger"
+                }
+            },
+            en: {
+                frame1: {
+                    headline: "Tech.",
+                    subline: "Repair • AI • Solutions"
+                },
+                frame2: {
+                    headline: "Not working?<br>We'll fix it.",
+                    subline: "PC • Laptop • Printer • AI"
+                },
+                frame3: {
+                    headline: "Your local<br>tech.",
+                    subline: "30 years experience • Fast service"
+                },
+                frame4: {
+                    headline: "Let's talk?",
+                    contact1: "Call",
+                    contact2: "Write",
+                    contact3: "Messenger"
+                }
+            },
+            es: {
+                frame1: {
+                    headline: "Tecnología.",
+                    subline: "Reparación • IA • Soluciones"
+                },
+                frame2: {
+                    headline: "¿No funciona?<br>Lo arreglamos.",
+                    subline: "PC • Portátil • Impresora • IA"
+                },
+                frame3: {
+                    headline: "Tu técnico<br>local.",
+                    subline: "30 años de experiencia • Servicio rápido"
+                },
+                frame4: {
+                    headline: "¿Hablamos?",
+                    contact1: "Llama",
+                    contact2: "Escribe",
+                    contact3: "Messenger"
+                }
+            }
+        };
+
+        let currentLanguage = 'fr';
+
+        // Language switching function
+        function switchLanguage(lang) {
+            currentLanguage = lang;
+
+            // Update all elements with data-lang-key
+            document.querySelectorAll('[data-lang-key]').forEach(el => {
+                const key = el.getAttribute('data-lang-key');
+                const keys = key.split('.');
+                const frame = keys[0];
+                const field = keys[1];
+
+                if (translations[lang] && translations[lang][frame] && translations[lang][frame][field]) {
+                    el.innerHTML = translations[lang][frame][field];
+                }
+            });
+
+            // Update active language button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+        }
+
+        // Language toggle click handlers
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                switchLanguage(btn.dataset.lang);
+            });
+        });
+
         // Update active dot based on scroll position
         const frames = document.querySelectorAll('.frame');
         const dots = document.querySelectorAll('.dot');
