@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iatech informatique</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .frame {
+            height: 100vh;
+            width: 100%;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Video background placeholder */
+        .video-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        /* Dark overlay for text readability */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1;
+        }
+
+        /* Content on top */
+        .content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem;
+            max-width: 600px;
+        }
+
+        .headline {
+            font-size: clamp(2rem, 8vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 20px rgba(0,0,0,0.8);
+            line-height: 1.1;
+        }
+
+        .subline {
+            font-size: clamp(1rem, 4vw, 1.5rem);
+            opacity: 0.9;
+            text-shadow: 1px 1px 10px rgba(0,0,0,0.8);
+            font-weight: 300;
+        }
+
+        /* Logo */
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: #fff;
+            border-radius: 50%;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: #1a1a2e;
+            font-size: 0.8rem;
+        }
+
+        /* CTA Button */
+        .cta {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 1rem 2.5rem;
+            background: #fff;
+            color: #000;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .cta:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 40px rgba(255,255,255,0.3);
+        }
+
+        /* Scroll indicator */
+        .scroll-hint {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            animation: bounce 2s infinite;
+            opacity: 0.7;
+        }
+
+        .scroll-hint svg {
+            width: 30px;
+            height: 30px;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        /* Service icons */
+        .icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Contact frame */
+        .contact-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.3rem;
+            padding: 1rem 2rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            transition: background 0.2s;
+        }
+
+        .contact-link:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* Location tag */
+        .location-tag {
+            position: absolute;
+            bottom: 5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            background: rgba(255,255,255,0.15);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Frame counter like TikTok */
+        .frame-counter {
+            position: fixed;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+
+        .dot.active {
+            background: #fff;
+            transform: scale(1.3);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation dots -->
+    <div class="frame-counter">
+        <div class="dot active" data-frame="1"></div>
+        <div class="dot" data-frame="2"></div>
+        <div class="dot" data-frame="3"></div>
+        <div class="dot" data-frame="4"></div>
+    </div>
+
+    <!-- FRAME 1: Hero / Intro -->
+    <section class="frame frame-1" id="frame1">
+        <video class="video-bg" autoplay muted loop playsinline>
+            <source src="images/Frame_1__202602121907_e2dgt.mp4" type="video/mp4">
+        </video>
+        <div class="overlay"></div>
+
+        <div class="content">
+            <div class="logo">iatech</div>
+            <h1 class="headline">L'informatique.<br>Sans bullshit.</h1>
+            <p class="subline">Réparation • IA • Solutions</p>
+        </div>
+
+        <div class="location-tag">📍 Saint-Pacôme, Kamouraska</div>
+
+        <div class="scroll-hint">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- FRAME 2: Services -->
+    <section class="frame frame-2" id="frame2">
+        <video class="video-bg" autoplay muted loop playsinline>
+            <source src="images/Frame_2__202602121922_af0nv.mp4" type="video/mp4">
+        </video>
+        <div class="overlay"></div>
+
+        <div class="content">
+            <h2 class="headline">Ça marche plus?<br>Ça va marcher.</h2>
+            <p class="subline">PC • Portable • Imprimante • IA</p>
+        </div>
+    </section>
+
+    <!-- FRAME 3: Local -->
+    <section class="frame frame-3" id="frame3">
+        <video class="video-bg" autoplay muted loop playsinline>
+            <source src="images/frame4Drone_aerial_shot_202602121950_6jq6k.mp4" type="video/mp4">
+        </video>
+        <div class="overlay"></div>
+
+        <div class="content">
+            <h2 class="headline">Ton voisin<br>informatique.</h2>
+            <p class="subline">30 ans d'expérience • Service rapide</p>
+        </div>
+
+        <div class="location-tag">📍 Saint-Pacôme, Kamouraska</div>
+    </section>
+
+    <!-- FRAME 4: Contact -->
+    <section class="frame frame-4" id="frame4">
+        <video class="video-bg" autoplay muted loop playsinline>
+            <source src="images/Frame_3__202602121925_kdy1j.mp4" type="video/mp4">
+        </video>
+        <div class="overlay"></div>
+
+        <div class="content">
+            <h2 class="headline">On jase?</h2>
+
+            <div class="contact-content">
+                <a href="tel:+1234567890" class="contact-link">
+                    📞 <span>Appelle</span>
+                </a>
+                <a href="mailto:info@iatechinfo.com" class="contact-link">
+                    ✉️ <span>Écris</span>
+                </a>
+                <a href="#" class="contact-link">
+                    💬 <span>Messenger</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="location-tag">📍 Saint-Pacôme, Kamouraska</div>
+    </section>
+
+    <script>
+        // Update active dot based on scroll position
+        const frames = document.querySelectorAll('.frame');
+        const dots = document.querySelectorAll('.dot');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const frameNum = entry.target.id.replace('frame', '');
+                    dots.forEach(dot => dot.classList.remove('active'));
+                    document.querySelector(`.dot[data-frame="${frameNum}"]`).classList.add('active');
+                }
+            });
+        }, { threshold: 0.5 });
+
+        frames.forEach(frame => observer.observe(frame));
+
+        // Click dots to navigate
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const frameNum = dot.dataset.frame;
+                document.getElementById(`frame${frameNum}`).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+
+</body>
+</html>

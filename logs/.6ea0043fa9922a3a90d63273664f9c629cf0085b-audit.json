@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "/home/rene/iatech2/logs/.6ea0043fa9922a3a90d63273664f9c629cf0085b-audit.json",
+    "files": [
+        {
+            "date": 1770942937757,
+            "name": "/home/rene/iatech2/logs/mcp-puppeteer-2026-02-12.log",
+            "hash": "5aa3ddb38bdd236cb8e791af1a93abdd216e4df65eeefdaa6bc9246529daf7a4"
+        }
+    ],
+    "hashType": "sha256"
+}
